@@ -4,15 +4,15 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class main {
-    private static void fileReader() {
+public class Islands {
+    private static int lineNumber = 0;
+    public static void fileReader() {
         try {
             File file = new File("/home/andrew/IT/file.txt");
             FileReader fileReader = new FileReader(file); // поток, который подключается к текстовому файлу
             BufferedReader bufferedReader = new BufferedReader(fileReader); // соединяем FileReader с BufferedReader
-            //ArrayList<String> map = new A
             String line;
-            int lineNumber = 0; // подсчет ячейки
+             // подсчет островов
             int coced = 0; // сосед текущего острова
             int[][] array = new int[6][6];
             while ((line = bufferedReader.readLine()) != null) {
@@ -49,12 +49,12 @@ public class main {
                 }
                 System.out.println();
             }
+            System.out.println(lineNumber);
         } catch(Exception e){
             e.printStackTrace();
         }
     }
-
-    public static void main (String[]args){
-        fileReader();
+    public static int getCount(){
+            return lineNumber;
     }
 }
