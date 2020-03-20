@@ -27,22 +27,29 @@ public class tmp {
                 String str = null;
                 BufferedReader br = new BufferedReader(new FileReader("/home/andrew/IT/file.txt"));
                 List<String[]> islandInfo    = new ArrayList<String[]>();
+                int countStr = 0;
                 while ((str = br.readLine()) != null) {
                     String[] list = str.split(" ");
-
+                    //result = result.substring(0, result.indexOf('\n'));
+                    islandInfo.add(list);
                     for (String it : list) {
-                        System.out.printf("%s\t", it);
+                        System.out.print( "   " + it);
                     }
+
+                    countStr++;
                     System.out.println();
                 }
+                System.out.println(countStr);
                 br.close();
             } catch (IOException exc) {
                 System.out.println("IO error!" + exc);
             }
+
         }
     public static void main (String[]args) {
         split();
-        graphs();
+        System.out.println();
+
 
     }
 
