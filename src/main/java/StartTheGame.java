@@ -9,11 +9,12 @@ public class StartTheGame {
             String name = reader.readLine();
             int num = Integer.parseInt(name);
             count = num;
+            reader.close();
     }
     private static void firstMoor() {
         for (int i = 0; i < count; i++) {
             Vikings vikings = new Vikings();
-            vikings.moorToIsland(Islands.getCount());
+            vikings.moorToIsland(Islands.getIsland(i));
         }
     }
     public static void main (String[]args) throws IOException {

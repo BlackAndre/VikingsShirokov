@@ -7,7 +7,7 @@ public class Vikings {
     private int count;
 
     public void moorToIsland (int island) {
-        this.place =  (int) (Math.random()*island);
+        this.place =  island;
         System.out.println("Мы высадились на " + place + " епта");
     }
     public void moveToIsland (int howManyIslandLeft){

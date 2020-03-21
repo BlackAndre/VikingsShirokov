@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Islands {
     private static int lineNumber = 0;
+    public static ArrayList<Integer> listOfIslands = new ArrayList<Integer>(); // массив островов
     public static void fileReader() {
         try {
 
@@ -15,7 +16,8 @@ public class Islands {
             FileReader fileReader = new FileReader(file); // поток, который подключается к текстовому файлу
             BufferedReader bufferedReader = new BufferedReader(fileReader); // соединяем FileReader с BufferedReader
             String line; // подсчет островов
-            ArrayList<Integer> listOfIslands = new ArrayList<Integer>(); // массив островов
+
+
             int coced = 0; // сосед текущего острова
             int[][] array = new int[6][6]; // типо матрица смежности
             while ((line = bufferedReader.readLine()) != null) {
@@ -49,10 +51,10 @@ public class Islands {
 
             }
             Collections.shuffle(listOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
-            for (Integer list: listOfIslands) {
+            for (Integer list: listOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
                 System.out.println(list);
             }
-            for (int i = 0; i < array.length; i++) {
+            for (int i = 0; i < array.length; i++) { // вывод матрицы смежности на экран, удалить при отладке
                 for (int j = 0; j < array[i].length; j++) {
                     System.out.print(array[i][j] + "\t");
                 }
@@ -63,7 +65,10 @@ public class Islands {
             e.printStackTrace();
         }
     }
-    public static int getCount(){
+    public static int getCount(){// общее количество островов
             return lineNumber;
+    }
+    public static int getIsland(int i){ // конкретный остров
+        return listOfIslands.get(i);
     }
 }
