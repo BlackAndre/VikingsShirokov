@@ -6,13 +6,12 @@ public class Vikings {
     private int place;
     private int count;
 
-    public void moorToIsland (int island) {
+    public void moorToIsland (int count, int island) {
         this.place =  island;
-        System.out.println("Мы высадились на " + place + " епта");
+        System.out.println("Викинг"+count+" высадился на Остров" + place + " епта!!");
     }
     public void moveToIsland (int howManyIslandLeft){
         place =  (int) (Math.random()*howManyIslandLeft);
-
     }
-
+    //public void battle ()
 }

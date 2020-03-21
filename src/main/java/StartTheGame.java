@@ -14,7 +14,7 @@ public class StartTheGame {
     private static void firstMoor() {
         for (int i = 0; i < count; i++) {
             Vikings vikings = new Vikings();
-            vikings.moorToIsland(Islands.getIsland(i));
+            vikings.moorToIsland(i,Islands.getIsland(i));
         }
     }
     public static void main (String[]args) throws IOException {

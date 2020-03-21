@@ -1,14 +1,17 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Collections.shuffle;
 
 public class Islands {
-    private static int lineNumber = 0;
-    public static ArrayList<Integer> listOfIslands = new ArrayList<Integer>(); // массив островов
+     // массив островов
+     public static Map<Integer, ArrayList<Integer>> listOfIslands = new HashMap();
+    public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>();
+     // нужно создать map c ключом - это остров в начале строчки
+    //со значением - его соседи
+     private static int key = 0;
     public static void fileReader() {
         try {
 
@@ -18,57 +21,53 @@ public class Islands {
             String line; // подсчет островов
 
 
-            int coced = 0; // сосед текущего острова
-            int[][] array = new int[6][6]; // типо матрица смежности
+
             while ((line = bufferedReader.readLine()) != null) {
                 // выводим содержимое файла на экран построчно
-                if (line.contains("Остров1")) {
-                    coced = 0;
-                    array[lineNumber][coced] = 1;
-                }
-                if (line.contains("Остров2")) {
-                    coced = 1;
-                    array[lineNumber][coced] = 1;
-                }
-                if (line.contains("Остров3")) {
-                    coced = 2;
-                    array[lineNumber][coced] = 1;
-                }
-                if (line.contains("Остров4")) {
-                    coced = 3;
-                    array[lineNumber][coced] = 1;
-                }
-                if (line.contains("Остров5")) {
-                    coced = 4;
-                    array[lineNumber][coced] = 1;
-                }
-                if (line.contains("Остров6")) {
-                    coced = 5;
-                    array[lineNumber][coced] = 1;
-                }
-                lineNumber++;
-                listOfIslands.add(lineNumber);
+                String Vertex = line.substring(0,7); // соседи // остров хозяин
+                String Neighbors = line.substring(7,line.length());
+                ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
+
+                    if (Neighbors.contains("Остров1")) {
+                       listOfNeighbors.add(1);
+                    }
+                    if (Neighbors.contains("Остров2")) {
+                        listOfNeighbors.add(2);
+                    }
+                    if (Neighbors.contains("Остров3")) {
+                        listOfNeighbors.add(3);
+                    }
+                    if (Neighbors.contains("Остров4")) {
+                        listOfNeighbors.add(4);
+                    }
+                    if (Neighbors.contains("Остров5")) {
+                        listOfNeighbors.add(5);
+                    }
+                    if (Neighbors.contains("Остров6")) {
+                        listOfNeighbors.add(6);
+                    }
+
+                    listOfIslands.put(key, listOfNeighbors);
+                countOfIslands.add(key);
+                    key++;
+
 
             }
-            Collections.shuffle(listOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
-            for (Integer list: listOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
+            Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
+            for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
                 System.out.println(list);
             }
-            for (int i = 0; i < array.length; i++) { // вывод матрицы смежности на экран, удалить при отладке
-                for (int j = 0; j < array[i].length; j++) {
-                    System.out.print(array[i][j] + "\t");
-                }
-                System.out.println();
+            for (Map.Entry entry : listOfIslands.entrySet()) { // вывод островов с соседями
+                System.out.println("Key: " + entry.getKey() + " Value: "+ entry.getValue());
             }
-            System.out.println(lineNumber);
         } catch(Exception e){
             e.printStackTrace();
         }
     }
     public static int getCount(){// общее количество островов
-            return lineNumber;
+            return key;
     }
     public static int getIsland(int i){ // конкретный остров
-        return listOfIslands.get(i);
+        return countOfIslands.get(i);
     }
 }

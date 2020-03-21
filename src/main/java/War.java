@@ -1,4 +1,4 @@
-public class Move {
+public class War {
     // действие не должно быть классом, переделывать
 
 }
