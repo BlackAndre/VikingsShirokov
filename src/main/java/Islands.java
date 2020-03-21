@@ -61,10 +61,14 @@ public class Islands {
             e.printStackTrace();
         }
     }
+
     public static Set<Integer> getCount(){// общее количество островов
         return listOfIslands.keySet();
     }
     public static int getIsland(int i){ // конкретный остров
         return countOfIslands.get(i);
+    }
+    public static void danageOfLighthouse (int island) { // разрушение маяка после битвы
+     countOfIslands.remove(island);
     }
 }

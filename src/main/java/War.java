@@ -4,5 +4,7 @@ public class War {
             Islands.listOfIslands.remove(one.getPlace());
         }
     }
+    public void iterationOfWar(){
+    }
 
 }

@@ -17,9 +17,10 @@ public class Vikings {
         this.place =  island + 1;
         System.out.println("Викинг"+count+" высадился на Остров" + place + " епта!!");
     }
-    public void moveToIsland (int nextIsland){
-        int = Islands.listOfIslands
-        place =  (int) (Math.random()*howManyIslandLeft);
+    public void moveToIsland (int place){
+        int listOfIslandsToMove= Islands.listOfIslands.get(getPlace()).size();
+        this.place = (int) (Math.random()*listOfIslandsToMove);
+        System.out.println("Мы переехали на остров" + place);
     }
-    //
+
 }
