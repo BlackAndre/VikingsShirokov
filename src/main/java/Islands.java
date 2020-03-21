@@ -2,19 +2,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Islands {
     private static int lineNumber = 0;
     public static void fileReader() {
         try {
+
             File file = new File("/home/andrew/IT/file.txt");
             FileReader fileReader = new FileReader(file); // поток, который подключается к текстовому файлу
             BufferedReader bufferedReader = new BufferedReader(fileReader); // соединяем FileReader с BufferedReader
-            String line;
-             // подсчет островов
+            String line; // подсчет островов
+            ArrayList<Integer> listOfIslands = new ArrayList<Integer>(); // массив островов
             int coced = 0; // сосед текущего острова
-            int[][] array = new int[6][6];
+            int[][] array = new int[6][6]; // типо матрица смежности
             while ((line = bufferedReader.readLine()) != null) {
                 // выводим содержимое файла на экран построчно
                 if (line.contains("Остров1")) {
@@ -42,6 +45,12 @@ public class Islands {
                     array[lineNumber][coced] = 1;
                 }
                 lineNumber++;
+                listOfIslands.add(lineNumber);
+
+            }
+            Collections.shuffle(listOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
+            for (Integer list: listOfIslands) {
+                System.out.println(list);
             }
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array[i].length; j++) {
