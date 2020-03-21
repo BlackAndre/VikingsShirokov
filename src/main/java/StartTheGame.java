@@ -6,13 +6,13 @@ public class StartTheGame {
     private static int count = 0;
     public static void howMuchVikings() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String name = reader.readLine();
-            int num = Integer.parseInt(name);
-            count = num;
-            reader.close();
+        String name = reader.readLine();
+        int num = Integer.parseInt(name);
+        count = num;
+        reader.close();
     }
     private static void firstMoor() {
-        for (int i = 0; i < count; i++) {
+        for (int i = 1; i < count+1; i++) {
             Vikings vikings = new Vikings();
             vikings.moorToIsland(i,Islands.getIsland(i));
         }
@@ -21,5 +21,7 @@ public class StartTheGame {
         Islands.fileReader();
         howMuchVikings();
         firstMoor();
+        Islands.listOfIslands.remove(3);
+        System.out.println(Islands.getCount());
     }
 }

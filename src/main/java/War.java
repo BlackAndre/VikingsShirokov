@@ -1,4 +1,8 @@
 public class War {
-    // действие не должно быть классом, переделывать
+    public void battle (Vikings one, Vikings two) {
+        if(one.getPlace() == two.getPlace()){
+            Islands.listOfIslands.remove(one.getPlace());
+        }
+    }
 
 }
