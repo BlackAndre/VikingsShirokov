@@ -20,20 +20,28 @@ public class Vikings {
         this.name = name;
     }
 
-    public void moveToIsland (){
-        int listOfIslandsToMove= Islands.listOfIslands.get(getPlace()).size();
-        System.out.println("На сколько островов Викинг" + this.name + " может сходить: " + listOfIslandsToMove);
-        this.place = 1+ (int) (Math.random()*listOfIslandsToMove);
+    public void moveToIsland() {
+        int listOfIslandsToMove = Islands.listOfIslands.get(this.getPlace()).size();
+        //System.out.println("На сколько островов Викинг" + this.name + " может сходить: " + listOfIslandsToMove);
+        this.place = 1 + (int) (Math.random() * (listOfIslandsToMove + 1));
         System.out.println("Викинг" + this.name + " переехали на остров" + this.place);
     }
-    public void battle (Vikings anotherVikings) {
-        for (Map.Entry<Vikings, Integer> currentViking : StartTheGame.listOfVikings.entrySet()) {
-            if(this.getName() != anotherVikings.getName()){
-                Islands.listOfIslands.remove(one.getPlace());
-                StartTheGame.listOfVikings.remove(one.getName());
-                StartTheGame.listOfVikings.remove(two.getName());
-        }
 
+    public void battle() {
+        for (Map.Entry<Vikings, Integer> otherVikings : StartTheGame.listOfVikings.entrySet()) { // битва викингов
+            Vikings anotherViking = otherVikings.getKey();
+            if (this.getName() != anotherViking.getName()) {
+                System.out.println("Викинг"+ this.getName() + " против Викинг" + anotherViking.getName());
+
+                if (this.getPlace() == anotherViking.getPlace()) {
+                    System.out.println("НАЧАЛАСЬ БИТВА!!!!!");
+                    Islands.listOfIslands.remove(this.getPlace());
+                    StartTheGame.listOfVikings.remove(this.getName());
+                   // StartTheGame.listOfVikings.remove(anotherViking.getName());
+                }
+            } else {
+                //System.out.println("Битвы не было");
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,12 +34,17 @@ public class StartTheGame {
                 Vikings vikingToMove = pair.getKey();
                 vikingToMove.moveToIsland();
             }
-            for (Map.Entry<Vikings, Integer> currentViking : listOfVikings.entrySet()) {
-                Vikings vikingToBattle = currentViking.getKey();
-                vikingToBattle.battle(vikingToBattle);
+            for (Map.Entry<Vikings, Integer> battleOfVikings : listOfVikings.entrySet()) { // битва викингов
+                Vikings vikingToBattle = battleOfVikings.getKey();
+                vikingToBattle.battle();
             }
+            printCurrentMap();
         }
 
+    }
+    private static void printCurrentMap() {
+        System.out.println("Теперь столько викингов:" + StartTheGame.listOfVikings.values());
+        System.out.println("Теперь столько островов:" + Islands.listOfIslands.keySet());
     }
 
 
