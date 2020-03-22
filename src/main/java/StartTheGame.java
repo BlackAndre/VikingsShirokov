@@ -24,11 +24,11 @@ public class StartTheGame {
     private static void WarIsOn (){
         War vikingsWar = new War();
         firstMoor();
-        for (int i = 0; i < 10000; i++) { // счет дней
-            System.out.println(listOfVikings.size());
+        System.out.println("Столько у нас викингов: " + listOfVikings.size());
+        for (int i = 0; i < 2; i++) { // счет дней
+
             for (int j = 0; j < listOfVikings.size(); j++) { // все ли викинги сходили
-                listOfVikings.get(j).moveToIsland(Islands.getCount().size());
-                System.out.println(555555);
+                listOfVikings.get(j).moveToIsland();
                // vikingsWar.battle();
             }
             //vikingsWar.battle();
