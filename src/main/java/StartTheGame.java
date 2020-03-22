@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class StartTheGame {
     private static int count = 0;
-    public static Map<Vikings, Integer> listOfVikings= new HashMap<Vikings, Integer>();
+    public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>();
     public static void howMuchVikings() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
@@ -22,7 +22,7 @@ public class StartTheGame {
             Vikings vikings = new Vikings();
             vikings.setName(i);
             vikings.setPlace(Islands.getIsland(i));
-            listOfVikings.put(vikings,vikings.getPlace());
+            listOfVikings.put(vikings.getPlace(),vikings);
             System.out.println("Викинг" + vikings.getName() + " высадился на остров" + vikings.getPlace());
         }
     }
@@ -30,12 +30,13 @@ public class StartTheGame {
         firstMoor();
         System.out.println("Столько у нас викингов: " + listOfVikings.size());
         for (int i = 0; i < 1; i++) { // счет дней
-            for(Map.Entry<Vikings, Integer> pair : listOfVikings.entrySet()) { //движение викингов
-                Vikings vikingToMove = pair.getKey();
+            for(Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //движение викингов
+                int countOfViking = pair.getKey();
+                Vikings vikingToMove = pair.getValue();
                 vikingToMove.moveToIsland();
             }
-            for (Map.Entry<Vikings, Integer> battleOfVikings : listOfVikings.entrySet()) { // битва викингов
-                Vikings vikingToBattle = battleOfVikings.getKey();
+            for (Map.Entry<Integer, Vikings> battleOfVikings : listOfVikings.entrySet()) { // битва викингов
+                Vikings vikingToBattle = battleOfVikings.getValue();
                 vikingToBattle.battle();
             }
             printCurrentMap();

@@ -28,8 +28,8 @@ public class Vikings {
     }
 
     public void battle() {
-        for (Map.Entry<Vikings, Integer> otherVikings : StartTheGame.listOfVikings.entrySet()) { // битва викингов
-            Vikings anotherViking = otherVikings.getKey();
+        for (Map.Entry<Integer, Vikings> otherVikings : StartTheGame.listOfVikings.entrySet()) { // битва викингов
+            Vikings anotherViking = otherVikings.getValue();
             if (this.getName() != anotherViking.getName()) {
                 System.out.println("Викинг"+ this.getName() + " против Викинг" + anotherViking.getName());
 
