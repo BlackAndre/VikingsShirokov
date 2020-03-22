@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class Vikings {
     private int place;
     private int name;
@@ -24,5 +26,14 @@ public class Vikings {
         this.place = 1+ (int) (Math.random()*listOfIslandsToMove);
         System.out.println("Викинг" + this.name + " переехали на остров" + this.place);
     }
+    public void battle (Vikings anotherVikings) {
+        for (Map.Entry<Vikings, Integer> currentViking : StartTheGame.listOfVikings.entrySet()) {
+            if(this.getName() != anotherVikings.getName()){
+                Islands.listOfIslands.remove(one.getPlace());
+                StartTheGame.listOfVikings.remove(one.getName());
+                StartTheGame.listOfVikings.remove(two.getName());
+        }
 
+        }
+    }
 }

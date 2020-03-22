@@ -28,17 +28,16 @@ public class StartTheGame {
         }
     }
     private static void WarIsOn (){
-        War vikingsWar = new War();
         firstMoor();
         System.out.println("Столько у нас викингов: " + listOfVikings.size());
         for (int i = 0; i < 1; i++) { // счет дней
             for(Map.Entry<Vikings, Integer> pair : listOfVikings.entrySet()) { //движение викингов
-                Vikings viking = pair.getKey();
-                viking.moveToIsland();
+                Vikings vikingToMove = pair.getKey();
+                vikingToMove.moveToIsland();
             }
             for (Map.Entry<Vikings, Integer> currentViking : listOfVikings.entrySet()) {
-                int currentIsland = battleList.getValue();
-
+                Vikings vikingToBattle = currentViking.getKey();
+                vikingToBattle.battle(vikingToBattle);
             }
         }
 
