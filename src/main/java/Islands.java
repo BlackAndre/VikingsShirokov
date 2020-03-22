@@ -11,7 +11,7 @@ public class Islands {
     public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>();
     // нужно создать map c ключом - это остров в начале строчки
     //со значением - его соседи
-    private static int key = 0;
+    private static int key = 1;
     public static void fileReader() {
         try {
 
@@ -51,9 +51,9 @@ public class Islands {
 
             }
             Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
-            /*for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
+            for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
                 System.out.println(list);
-            }*/
+            }
             for (Map.Entry entry : listOfIslands.entrySet()) { // вывод островов с соседями
                 System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
             }
