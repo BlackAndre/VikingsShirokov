@@ -51,9 +51,9 @@ public class Islands {
 
             }
             Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
-            for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
+            /*for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
                 System.out.println(list);
-            }
+            }*/
             for (Map.Entry entry : listOfIslands.entrySet()) { // вывод островов с соседями
                 System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
             }

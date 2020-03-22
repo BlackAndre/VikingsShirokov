@@ -21,7 +21,7 @@ public class Vikings {
     public void moveToIsland (){
         int listOfIslandsToMove= Islands.listOfIslands.get(getPlace()).size();
         System.out.println("На сколько островов Викинг" + this.name + " может сходить: " + listOfIslandsToMove);
-        this.place = (int) (Math.random()*listOfIslandsToMove);
+        this.place = 1+ (int) (Math.random()*listOfIslandsToMove);
         System.out.println("Викинг" + this.name + " переехали на остров" + this.place);
     }
 

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class StartTheGame {
     private static int count = 0;
-    private static Map<Vikings, Integer> listOfVikings= new HashMap<Vikings, Integer>();
+    public static Map<Vikings, Integer> listOfVikings= new HashMap<Vikings, Integer>();
     public static void howMuchVikings() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
@@ -32,9 +32,13 @@ public class StartTheGame {
         firstMoor();
         System.out.println("Столько у нас викингов: " + listOfVikings.size());
         for (int i = 0; i < 1; i++) { // счет дней
-            for(Map.Entry<Vikings, Integer> pair : listOfVikings.entrySet()) {
+            for(Map.Entry<Vikings, Integer> pair : listOfVikings.entrySet()) { //движение викингов
                 Vikings viking = pair.getKey();
                 viking.moveToIsland();
+            }
+            for (Map.Entry<Vikings, Integer> currentViking : listOfVikings.entrySet()) {
+                int currentIsland = battleList.getValue();
+
             }
         }
 
