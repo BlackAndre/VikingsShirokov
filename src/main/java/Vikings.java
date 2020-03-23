@@ -1,4 +1,6 @@
-import java.util.Map;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
+import java.util.*;
 
 public class Vikings {
     private int place;
@@ -21,27 +23,11 @@ public class Vikings {
     }
 
     public void moveToIsland() {
-        int listOfIslandsToMove = Islands.listOfIslands.get(this.getPlace()).size();
-        //System.out.println("На сколько островов Викинг" + this.name + " может сходить: " + listOfIslandsToMove);
-        this.place = 1 + (int) (Math.random() * (listOfIslandsToMove + 1));
-        System.out.println("Викинг" + this.name + " переехали на остров" + this.place);
-    }
-
-    public void battle() {
-        for (Map.Entry<Integer, Vikings> otherVikings : StartTheGame.listOfVikings.entrySet()) { // битва викингов
-            Vikings anotherViking = otherVikings.getValue();
-            if (this.getName() != anotherViking.getName()) {
-                System.out.println("Викинг"+ this.getName() + " против Викинг" + anotherViking.getName());
-
-                if (this.getPlace() == anotherViking.getPlace()) {
-                    System.out.println("НАЧАЛАСЬ БИТВА!!!!!");
-                    Islands.listOfIslands.remove(this.getPlace());
-                    StartTheGame.listOfVikings.remove(this.getName());
-                   // StartTheGame.listOfVikings.remove(anotherViking.getName());
-                }
-            } else {
-                //System.out.println("Битвы не было");
-            }
-        }
+        ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(this.getPlace());
+        System.out.println("Викинг " + getName() +" может сходить на острова: " + listOfIslandsToMove);
+        int countOfNeighbors = new Random().nextInt(listOfIslandsToMove.size());
+        this.place = listOfIslandsToMove.get(countOfNeighbors);
+        System.out.println("Викинг" + this.name + " переехал на остров" + this.place);
+        StartTheGame.listVikingsAndIslands.put(name, place);
     }
 }
