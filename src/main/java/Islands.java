@@ -61,7 +61,10 @@ public class Islands {
             e.printStackTrace();
         }
     }
-
+    public static void removeTheNeighbors (ArrayList<Integer> neighbors, int island) {
+        int index = neighbors.indexOf(island);
+        neighbors.remove(index);
+    }
     public static Set<Integer> getCount(){// общее количество островов
         return listOfIslands.keySet();
     }
@@ -69,6 +72,6 @@ public class Islands {
         return countOfIslands.get(i);
     }
     public static void danageOfLighthouse (int island) { // разрушение маяка после битвы
-     countOfIslands.remove(island);
+        countOfIslands.remove(island);
     }
 }

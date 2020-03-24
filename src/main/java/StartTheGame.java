@@ -45,20 +45,28 @@ public class StartTheGame {
     public static void damageMayak (Integer island) {
         Islands.listOfIslands.remove(island);
         System.out.println("Должен быть уничтожен остров" +island);
+        for (Map.Entry entry : Islands.listOfIslands.entrySet()) {
+            System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
+
+            Islands.removeTheNeighbors(Islands.listOfIslands.getValue(), island); // соседей доделать
+        }
+
     }
     public static void killVikings (Map<Integer, Integer> map, Integer value) {
         Map<Integer, Integer> copy = new HashMap(map);
         for (Map.Entry<Integer, Integer> pair : copy.entrySet()) {
             if (pair.getValue().equals(value)) {
                 map.remove(pair.getKey());
-                listOfVikings.remove(pair.getKey());
+                //listOfVikings.remove(pair.getKey());
             }
         }
     }
     private static void WarIsOn () {
         firstMoor();
-        for (int i = 0; i < 3; i++) { // счет дней
-            System.out.println("День " + i);
+        int countOfDays = 1;
+        while (countOfDays < 10000) {
+            // счет дней
+            System.out.println("День " + countOfDays);
             for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //движение викингов
                 Vikings vikingToMove = pair.getValue();
                 vikingToMove.moveToIsland();
@@ -68,11 +76,15 @@ public class StartTheGame {
                 Vikings vikingToBattle = battleOfVikings.getValue();
                 battle(listVikingsAndIslands);
             }
-        }
-        if (listVikingsAndIslands.isEmpty()) {
-            System.out.println("ВСЕ сдохли");
-        } else {
-            printCurrentMap();
+            countOfDays++;
+
+            if (listVikingsAndIslands.isEmpty()) {
+                System.out.println("ВСЕ сдохли");
+                break;
+            } else {
+                printCurrentMap();
+
+            }
         }
     }
 
