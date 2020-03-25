@@ -1,3 +1,5 @@
+import sun.java2d.SurfaceDataProxy;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -61,9 +63,22 @@ public class Islands {
             e.printStackTrace();
         }
     }
-    public static void removeTheNeighbors (ArrayList<Integer> neighbors, int island) {
-        int index = neighbors.indexOf(island);
-        neighbors.remove(index);
+    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
+        Iterator<Integer> listIterator = list.iterator();//создаем итератор
+        while(listIterator.hasNext()) {//до тех пор, пока в списке есть элементы
+            Integer nextInt = listIterator.next();//получаем следующий элемент
+            if (nextInt.equals(neighbor)) {
+                listIterator.remove();//удаляем кота с нужным именем
+            }
+        }
+
+        System.out.println("Проверить удалились ли соседи" + list);
+
+        /*int indexOfNeighbor = list.indexOf(neighbor);
+        System.out.println("Индекс у острова соседа который нужно удалить" + indexOfNeighbor);
+        list.remove(indexOfNeighbor);
+        //System.out.println("Теперь можно сходить так: " + list);
+*/
     }
     public static Set<Integer> getCount(){// общее количество островов
         return listOfIslands.keySet();

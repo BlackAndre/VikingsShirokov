@@ -28,29 +28,34 @@ public class StartTheGame {
         }
     }
     public static void battle (Map<Integer, Integer> map) {
-        List<Integer> islands = new ArrayList(); // перегоняем map в list
-        for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
-            islands.add(pair.getValue()); //в list записываем только острова(value из map)
-        }
-        Collections.sort(islands); // выравниваем местоположение викингов по возрастанию
-        for (int i = 1; i < islands.size(); i++) {
-            if (islands.get(i).equals(islands.get(i - 1))) {
-                System.out.println("Повтор найден, началась битва!!");//проверяем есть ли подряд повторы
-                killVikings(map, islands.get(i)); // если на острове есть несколько викингов - убиваем их и
-                damageMayak(islands.get(i));      // разрушаем  маяк
-            }
-        }
 
+
+       try {
+           ArrayList<Integer> islands = new ArrayList(); // перегоняем map в list
+           for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
+               islands.add(pair.getValue()); //в list записываем только острова(value из map)
+           }
+           Collections.sort(islands); // выравниваем местоположение викингов по возрастанию
+           System.out.println(islands);
+           for (int i = 0; i < islands.size(); i++) {
+               if (islands.get(i).equals(islands.get(i + 1))) {
+                   System.out.println("Повтор найден, началась битва!!");//проверяем есть ли подряд повторы
+                   killVikings(map, islands.get(i)); // если на острове есть несколько викингов - убиваем их и
+                   damageMayak(islands.get(i));      // разрушаем  маяк
+               }
+           }
+       } catch (Exception e){
+           System.out.println("Ошибка здесь");
+       }
     }
     public static void damageMayak (Integer island) {
         Islands.listOfIslands.remove(island);
         System.out.println("Должен быть уничтожен остров" +island);
         for (Map.Entry entry : Islands.listOfIslands.entrySet()) {
+           ArrayList<Integer> neighborslist = (ArrayList<Integer>) entry.getValue();
+            Islands.removeTheNeighbors(neighborslist, island); // соседей доделать
             System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
-
-            Islands.removeTheNeighbors(Islands.listOfIslands.getValue(), island); // соседей доделать
         }
-
     }
     public static void killVikings (Map<Integer, Integer> map, Integer value) {
         Map<Integer, Integer> copy = new HashMap(map);
@@ -64,26 +69,22 @@ public class StartTheGame {
     private static void WarIsOn () {
         firstMoor();
         int countOfDays = 1;
-        while (countOfDays < 10000) {
+        while (countOfDays < 2) {
             // счет дней
             System.out.println("День " + countOfDays);
             for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //движение викингов
                 Vikings vikingToMove = pair.getValue();
                 vikingToMove.moveToIsland();
             }
-
-            for (Map.Entry<Integer, Vikings> battleOfVikings : listOfVikings.entrySet()) { // битва викингов
-                Vikings vikingToBattle = battleOfVikings.getValue();
-                battle(listVikingsAndIslands);
-            }
+            System.out.println("ВСЕ СХОДИЛИ");
+            //for (Map.Entry<Integer, Vikings> battleOfVikings : listOfVikings.entrySet()) { // битва викингов
+            battle(listVikingsAndIslands);
             countOfDays++;
-
             if (listVikingsAndIslands.isEmpty()) {
                 System.out.println("ВСЕ сдохли");
                 break;
             } else {
                 printCurrentMap();
-
             }
         }
     }
@@ -93,7 +94,6 @@ public class StartTheGame {
         System.out.println("Теперь столько островов:" + StartTheGame.listVikingsAndIslands.values());
         System.out.println("Викинг и острова "+ StartTheGame.listVikingsAndIslands);
     }
-
 
     public static void main (String[]args) throws IOException {
         Islands.fileReader();
