@@ -24,7 +24,6 @@ public class Islands {
 
             while ((line = bufferedReader.readLine()) != null) {
                 // выводим содержимое файла на экран построчно
-                String Vertex = line.substring(0,7); // соседи // остров хозяин
                 String Neighbors = line.substring(7,line.length());
                 ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
 
@@ -69,10 +68,8 @@ public class Islands {
                 listIterator.remove();//удаляем остров с нужным именем
             }
         }
-
     }
     public static int getIsland(int i){ // конкретный остров
-        return countOfIslands.get(i);
+        return countOfIslands.get(i-1);
     }
-
 }

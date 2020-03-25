@@ -18,16 +18,18 @@ public class Vikings {
     public void setName(int name) {
         this.name = name;
     }
-    public void moveToIsland() {
-        ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(this.getPlace());
+    public boolean moveToIsland() {
+        ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(getPlace());
         if (listOfIslandsToMove.size() != 0) {
             System.out.println("Викинг " + getName() + " может сходить на острова: " + listOfIslandsToMove);
             int randomNeighbor = new Random().nextInt(listOfIslandsToMove.size());
-            this.place = listOfIslandsToMove.get(randomNeighbor);
-            System.out.println("Викинг" + this.name + " переехал на остров" + this.place);
-            StartTheGame.listVikingsAndIslands.put(name, place);
+            setPlace(listOfIslandsToMove.get(randomNeighbor));
+            System.out.println("Викинг" + getName() + " переехал на остров" + getPlace());
+            StartTheGame.listVikingsAndIslands.put(getName(), getPlace());
+            return true;
         } else {
             System.out.println("АГР!!! Викинг" + getName() + " застрял на Острове" + getPlace() + " и больше не участвует в войне");
+        return false;
         }
     }
 }
