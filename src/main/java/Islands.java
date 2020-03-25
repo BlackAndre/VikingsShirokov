@@ -1,3 +1,5 @@
+import sun.java2d.SurfaceDataProxy;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,8 +24,7 @@ public class Islands {
 
             while ((line = bufferedReader.readLine()) != null) {
                 // выводим содержимое файла на экран построчно
-                String Vertex = line.substring(0,7); // соседи // остров хозяин
-                String Neighbors = line.substring(7,line.length());
+                String Neighbors = line.substring(7);
                 ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
 
                 if (Neighbors.contains("Остров1")) {
@@ -48,12 +49,9 @@ public class Islands {
                 listOfIslands.put(key, listOfNeighbors);
                 countOfIslands.add(key);
                 key++;
-
             }
             Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
-            /*for (Integer list: countOfIslands) { // вывод перемешанной коллекции на экран, удалить при отладке
-                System.out.println(list);
-            }*/
+
             for (Map.Entry entry : listOfIslands.entrySet()) { // вывод островов с соседями
                 System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
             }
@@ -61,14 +59,16 @@ public class Islands {
             e.printStackTrace();
         }
     }
-
-    public static Set<Integer> getCount(){// общее количество островов
-        return listOfIslands.keySet();
+    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
+        Iterator<Integer> listIterator = list.iterator();//создаем итератор
+        while(listIterator.hasNext()) {//до тех пор, пока в списке есть элементы
+            Integer nextInt = listIterator.next();//получаем следующий элемент
+            if (nextInt.equals(neighbor)) {
+                listIterator.remove();//удаляем остров с нужным именем
+            }
+        }
     }
     public static int getIsland(int i){ // конкретный остров
-        return countOfIslands.get(i);
-    }
-    public static void danageOfLighthouse (int island) { // разрушение маяка после битвы
-     countOfIslands.remove(island);
+        return countOfIslands.get(i-1);
     }
 }

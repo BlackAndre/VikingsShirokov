@@ -1,4 +1,4 @@
-import java.util.Map;
+import java.util.*;
 
 public class Vikings {
     private int place;
@@ -7,41 +7,27 @@ public class Vikings {
     public int getPlace() {
         return place;
     }
-
     public void setPlace(int place) {
         this.place = place;
     }
-
     public int getName() {
         return name;
     }
-
     public void setName(int name) {
         this.name = name;
     }
-
-    public void moveToIsland() {
-        int listOfIslandsToMove = Islands.listOfIslands.get(this.getPlace()).size();
-        //System.out.println("На сколько островов Викинг" + this.name + " может сходить: " + listOfIslandsToMove);
-        this.place = 1 + (int) (Math.random() * (listOfIslandsToMove + 1));
-        System.out.println("Викинг" + this.name + " переехали на остров" + this.place);
-    }
-
-    public void battle() {
-        for (Map.Entry<Integer, Vikings> otherVikings : StartTheGame.listOfVikings.entrySet()) { // битва викингов
-            Vikings anotherViking = otherVikings.getValue();
-            if (this.getName() != anotherViking.getName()) {
-                System.out.println("Викинг"+ this.getName() + " против Викинг" + anotherViking.getName());
-
-                if (this.getPlace() == anotherViking.getPlace()) {
-                    System.out.println("НАЧАЛАСЬ БИТВА!!!!!");
-                    Islands.listOfIslands.remove(this.getPlace());
-                    StartTheGame.listOfVikings.remove(this.getName());
-                   // StartTheGame.listOfVikings.remove(anotherViking.getName());
-                }
-            } else {
-                //System.out.println("Битвы не было");
-            }
+    public boolean moveToIsland() {
+        ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(getPlace());
+        if (listOfIslandsToMove.size() != 0) {
+            System.out.println("Викинг " + getName() + " может сходить на острова: " + listOfIslandsToMove);
+            int randomNeighbor = new Random().nextInt(listOfIslandsToMove.size());
+            setPlace(listOfIslandsToMove.get(randomNeighbor));
+            System.out.println("Викинг" + getName() + " переехал на остров" + getPlace());
+            StartTheWar.listVikingsAndIslands.put(getName(), getPlace());
+            return true;
+        } else {
+            System.out.println("АГР!!! Викинг" + getName() + " застрял на Острове" + getPlace() + " и больше не участвует в войне");
+        return false;
         }
     }
 }
