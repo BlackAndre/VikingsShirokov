@@ -6,19 +6,19 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class StartTheGame {
-    private static int count = 0;
+    private static int countVikingsFromKeyboard = 0;
     public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>();
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>();
     public static void howMuchVikings() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         int num = Integer.parseInt(name);
-        count = num;
+        countVikingsFromKeyboard = num;
         reader.close();
     }
     private static void firstMoor() {
 
-        for (int i = 1; i < count+1; i++) {
+        for (int i = 1; i < countVikingsFromKeyboard+1; i++) {
             Vikings vikings = new Vikings();
             vikings.setName(i);
             vikings.setPlace(Islands.getIsland(i));
@@ -43,7 +43,7 @@ public class StartTheGame {
             }
         }
        } catch (Exception e){
-           System.out.println("ОШИБКА ЗДЕСЬ");
+            e.printStackTrace();
        }
     }
     public static void damageMayak (Integer island) {
@@ -60,6 +60,16 @@ public class StartTheGame {
         for (Map.Entry<Integer, Integer> pair : copy.entrySet()) {
             if (pair.getValue().equals(value)) {
                 map.remove(pair.getKey());
+                killVikingsObjects(listOfVikings, pair.getKey());
+                //listOfVikings.remove(pair.getKey());
+            }
+        }
+    }
+    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) {
+        Map<Integer, Vikings> copy = new HashMap(map);
+        for (Map.Entry<Integer, Vikings> pair : copy.entrySet()) {
+            if (pair.getKey().equals(key)) {
+                map.remove(pair.getKey());
                 //listOfVikings.remove(pair.getKey());
             }
         }
@@ -67,7 +77,7 @@ public class StartTheGame {
     private static void WarIsOn () {
         firstMoor();
         int countOfDays = 1;
-        while (countOfDays < 2) {
+        while (countOfDays < 3) {
             // счет дней
             System.out.println("День " + countOfDays);
             for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //движение викингов
@@ -78,7 +88,7 @@ public class StartTheGame {
 
             battle(listVikingsAndIslands);
             countOfDays++;
-            if (listVikingsAndIslands.isEmpty()) {
+            if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
                 System.out.println("ВСЕ сдохли");
                 printCurrentMap();
                 break;
@@ -90,7 +100,8 @@ public class StartTheGame {
 
     private static void printCurrentMap() {
         System.out.println("Теперь столько викингов:" + StartTheGame.listVikingsAndIslands.keySet());
-        System.out.println("Теперь столько островов:" + StartTheGame.listVikingsAndIslands.values());
+        System.out.println("Теперь столько викингов - объектов" + listOfVikings.keySet());
+        System.out.println("Теперь столько островов:" + Islands.listOfIslands.keySet());
         System.out.println("Викинг и острова "+ StartTheGame.listVikingsAndIslands);
     }
 
