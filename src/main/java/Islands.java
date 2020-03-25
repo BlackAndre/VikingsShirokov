@@ -24,7 +24,7 @@ public class Islands {
 
             while ((line = bufferedReader.readLine()) != null) {
                 // выводим содержимое файла на экран построчно
-                String Neighbors = line.substring(7,line.length());
+                String Neighbors = line.substring(7);
                 ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
 
                 if (Neighbors.contains("Остров1")) {
@@ -49,7 +49,6 @@ public class Islands {
                 listOfIslands.put(key, listOfNeighbors);
                 countOfIslands.add(key);
                 key++;
-
             }
             Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
 

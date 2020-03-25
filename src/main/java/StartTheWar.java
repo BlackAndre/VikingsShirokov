@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class StartTheGame {
+public class StartTheWar {
     private static int countVikingsFromKeyboard = 0;
     public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>();
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>();
@@ -12,11 +12,9 @@ public class StartTheGame {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
 
-
         int num = Integer.parseInt(name);
         if(num > 6) {
             System.out.println("Викингов больше чем островов");
-
         } else
         countVikingsFromKeyboard = num;
         reader.close();
@@ -44,7 +42,7 @@ public class StartTheGame {
             count = Collections.frequency(islands, islandsInBattle); // если кто то есть на одном острове, то
             if (count > 1) {
                 removeVikingIslandBound(map, islandsInBattle); // разрыв связи викинг - островов и убийство викингов
-                damageMayak(islandsInBattle);// уничтожение маяка
+                damageLightHouse(islandsInBattle);// уничтожение маяка
                //printWhoDamagedIsland(listVikingsAndIslands, islandsInBattle); // распечатка кто уничтожил маяк
             }
         }
@@ -52,7 +50,7 @@ public class StartTheGame {
             e.printStackTrace();
        }
     }
-    public static void damageMayak (Integer island) {
+    public static void damageLightHouse(Integer island) {
         Islands.listOfIslands.remove(island); // уничтожается остров на котором была битва
         setOfDamagedIslands.add(island);
         //System.out.println("Должен быть уничтожен остров" +island);
@@ -60,20 +58,6 @@ public class StartTheGame {
            ArrayList<Integer> neighborslist = (ArrayList<Integer>) entry.getValue();
             Islands.removeTheNeighbors(neighborslist, island);
             //System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
-        }
-    }
-    public static void printWhoDamagedIsland (Map<Integer, Integer> listVikingsAndIslands, Integer island) {
-        ArrayList<Integer> listOfVikingInBattle = new ArrayList<Integer>();
-        System.out.println("Кто там че разрушает блять" + island);
-        for (Map.Entry<Integer, Integer> pair : listVikingsAndIslands.entrySet()) {
-           Integer islandInBattle = pair.getValue();
-            Integer VikingInBattle = pair.getKey();
-           if(islandInBattle.equals(island)) {
-               listOfVikingInBattle.add(VikingInBattle);
-
-           }
-           System.out.println("АГР!!! На Остров" + islandInBattle + " уничтожен маяк, благодаря Викинг" +
-                   listOfVikingInBattle.get(0)+ " и Викинг"+listOfVikingInBattle.get(1));
         }
     }
     public static void removeVikingIslandBound(Map<Integer, Integer> map, Integer value) {
@@ -86,7 +70,6 @@ public class StartTheGame {
                 System.out.println("АГР!!! На Острове" + islandInBattle + " уничтожен маяк, благодаря Викинг" +
                       vikingInBattle);
                 killVikingsObjects(listOfVikings, pair.getKey());
-                //listOfVikings.remove(pair.getKey());
             }
         }
     }
@@ -95,7 +78,6 @@ public class StartTheGame {
         for (Map.Entry<Integer, Vikings> pair : copy.entrySet()) {
             if (pair.getKey().equals(key)) {
                 map.remove(pair.getKey());
-                //listOfVikings.remove(pair.getKey());
             }
         }
     }
@@ -111,7 +93,6 @@ public class StartTheGame {
                     Vikings vikingToMove = pair.getValue();
                     isAnybodyMove = vikingToMove.moveToIsland();
                 }
-                //System.out.println("ВСЕ СХОДИЛИ");
                 battle(listVikingsAndIslands);
                 if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
                     System.out.println("ВСЕ сдохли");
@@ -128,10 +109,13 @@ public class StartTheGame {
     }
 
     private static void printCurrentMap() {
-       // System.out.println("Теперь столько викингов:" + StartTheGame.listVikingsAndIslands.keySet());
+       // System.out.println("Теперь столько викингов:" + StartTheWar.listVikingsAndIslands.keySet());
         //System.out.println("Теперь столько викингов - объектов" + listOfVikings.keySet());
-        //System.out.println("Теперь столько островов:" + Islands.listOfIslands.keySet());
-        //System.out.println("Викинг и острова "+ StartTheGame.listVikingsAndIslands);
+        for (Map.Entry<Integer, ArrayList<Integer>> pair : Islands.listOfIslands.entrySet()) {
+            System.out.println("Остров" + pair.getKey());
+        }
+        //System.out.println("Викинг и острова "+ StartTheWar.listVikingsAndIslands);
+
     }
 
     public static void main (String[]args) throws IOException {

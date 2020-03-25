@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.*;
 
 public class Vikings {
@@ -25,7 +23,7 @@ public class Vikings {
             int randomNeighbor = new Random().nextInt(listOfIslandsToMove.size());
             setPlace(listOfIslandsToMove.get(randomNeighbor));
             System.out.println("Викинг" + getName() + " переехал на остров" + getPlace());
-            StartTheGame.listVikingsAndIslands.put(getName(), getPlace());
+            StartTheWar.listVikingsAndIslands.put(getName(), getPlace());
             return true;
         } else {
             System.out.println("АГР!!! Викинг" + getName() + " застрял на Острове" + getPlace() + " и больше не участвует в войне");
