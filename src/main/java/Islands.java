@@ -68,17 +68,11 @@ public class Islands {
         while(listIterator.hasNext()) {//до тех пор, пока в списке есть элементы
             Integer nextInt = listIterator.next();//получаем следующий элемент
             if (nextInt.equals(neighbor)) {
-                listIterator.remove();//удаляем кота с нужным именем
+                listIterator.remove();//удаляем остров с нужным именем
             }
         }
+       // System.out.println("Проверить удалились ли соседи" + list);
 
-        System.out.println("Проверить удалились ли соседи" + list);
-
-        /*int indexOfNeighbor = list.indexOf(neighbor);
-        System.out.println("Индекс у острова соседа который нужно удалить" + indexOfNeighbor);
-        list.remove(indexOfNeighbor);
-        //System.out.println("Теперь можно сходить так: " + list);
-*/
     }
     public static Set<Integer> getCount(){// общее количество островов
         return listOfIslands.keySet();
