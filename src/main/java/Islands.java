@@ -8,25 +8,21 @@ import java.util.*;
 import static java.util.Collections.shuffle;
 
 public class Islands {
-    // массив островов
-    public static Map<Integer, ArrayList<Integer>> listOfIslands = new HashMap();
-    public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>();
-    // нужно создать map c ключом - это остров в начале строчки
-    //со значением - его соседи
-    private static int key = 1;
-    public static void fileReader() {
+    public static Map<Integer, ArrayList<Integer>> listOfIslands = new HashMap(); //create the map of islands
+    public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>(); // create List to count islands
+    private static int key = 1; // start to count from 1, not from 0
+    public static void fileReader() { // create method to read the file with map of islands
         try {
 
-            File file = new File("/home/andrew/IT/file.txt");
-            FileReader fileReader = new FileReader(file); // поток, который подключается к текстовому файлу
-            BufferedReader bufferedReader = new BufferedReader(fileReader); // соединяем FileReader с BufferedReader
-            String line; // подсчет островов
+            File file = new File("/home/andrew/IT/file.txt"); // specify file path
+            FileReader fileReader = new FileReader(file); // create class FileReader to read the file
+            BufferedReader bufferedReader = new BufferedReader(fileReader); // connect FileReader with BufferedReader
+            String line; // line reading
 
-            while ((line = bufferedReader.readLine()) != null) {
-                // выводим содержимое файла на экран построчно
-                String Neighbors = line.substring(7);
-                ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
-
+            while ((line = bufferedReader.readLine()) != null) { // until the lines end
+                String Neighbors = line.substring(7); // cutting line after 7th character
+                ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>(); // create the list of neighbors current island
+                // filling the array of neighbors
                 if (Neighbors.contains("Остров1")) {
                     listOfNeighbors.add(1);
                 }
@@ -46,29 +42,31 @@ public class Islands {
                     listOfNeighbors.add(6);
                 }
 
-                listOfIslands.put(key, listOfNeighbors);
-                countOfIslands.add(key);
-                key++;
+                listOfIslands.put(key, listOfNeighbors); // filling in the map of island and its neighbors
+                countOfIslands.add(key); // filling the array count
+                key++; // increment the key (number of main island)
             }
-            Collections.shuffle(countOfIslands); // для случайного неповторяющегося списка, чтобы посадить викингов
+            Collections.shuffle(countOfIslands); // shuffle the array count to land the viking on random island for the first time
 
-            for (Map.Entry entry : listOfIslands.entrySet()) { // вывод островов с соседями
+            /*for (Map.Entry entry : listOfIslands.entrySet()) {  out put the islands with neighbors
                 System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
-            }
+
+            }*/
         } catch(Exception e){
             e.printStackTrace();
         }
     }
-    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
-        Iterator<Integer> listIterator = list.iterator();//создаем итератор
-        while(listIterator.hasNext()) {//до тех пор, пока в списке есть элементы
-            Integer nextInt = listIterator.next();//получаем следующий элемент
+    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) { // method to delete the neighbor
+                                                                                // when the same island`s lighthouse is damaged
+        Iterator<Integer> listIterator = list.iterator();//create iterator
+        while(listIterator.hasNext()) {
+            Integer nextInt = listIterator.next();
             if (nextInt.equals(neighbor)) {
-                listIterator.remove();//удаляем остров с нужным именем
+                listIterator.remove();//remove the island that equals the one which is destroyed
             }
         }
     }
-    public static int getIsland(int i){ // конкретный остров
+    public static int getIsland(int i){ // getter of the island
         return countOfIslands.get(i-1);
     }
 }
