@@ -52,14 +52,14 @@ public class StartTheWar {
     public static void damageLightHouse(Integer island) {
         Islands.listOfIslands.remove(island); // remove the island where was the battle
         setOfDamagedIslands.add(island); // filled the Set of damaged islands
-        //System.out.println("Должен быть уничтожен остров" +island);
+        //System.out.println("Should be damaged" +island);
         for (Map.Entry entry : Islands.listOfIslands.entrySet()) {
-           ArrayList<Integer> neighborslist = (ArrayList<Integer>) entry.getValue();
-            Islands.removeTheNeighbors(neighborslist, island);
+           ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue(); // remove the damaged neighbor of every island
+            Islands.removeTheNeighbors(neighbors, island);
             //System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
         }
     }
-    public static void removeVikingIslandBound(Map<Integer, Integer> map, Integer value) {
+    public static void removeVikingIslandBound(Map<Integer, Integer> map, Integer value) { // remove the bound viking-island
         Map<Integer, Integer> copy = new HashMap(map);
         for (Map.Entry<Integer, Integer> pair : copy.entrySet()) {
             Integer islandInBattle = pair.getValue();
@@ -67,12 +67,12 @@ public class StartTheWar {
             if (islandInBattle.equals(value)) {
                 map.remove(vikingInBattle);
                 System.out.println("АГР!!! На Острове" + islandInBattle + " уничтожен маяк, благодаря Викинг" +
-                      vikingInBattle);
+                      vikingInBattle); // print what happened
                 killVikingsObjects(listOfVikings, pair.getKey());
             }
         }
     }
-    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) {
+    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) { // kill the vikings in battle
         Map<Integer, Vikings> copy = new HashMap(map);
         for (Map.Entry<Integer, Vikings> pair : copy.entrySet()) {
             if (pair.getKey().equals(key)) {
@@ -80,21 +80,21 @@ public class StartTheWar {
             }
         }
     }
-    private static void WarIsOn () {
-        firstMoor();
+    private static void WarIsOn () { // main action of War
+        firstMoor(); // landing the vikings
         int countOfDays = 1;
-        boolean isAnybodyMove =true;
-        while (isAnybodyMove) {// счет дней
+        boolean isAnybodyMove = true; // if anybody move on the map, keep going
+        while (isAnybodyMove) {
             if (countOfDays < 10000) {
-                System.out.println("День " + countOfDays);
-                for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //движение викингов
+               // System.out.println("Day " + countOfDays);
+                for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //move of vikings
                     Vikings vikingToMove = pair.getValue();
                     isAnybodyMove = vikingToMove.moveToIsland();
                 }
-                battle(listVikingsAndIslands);
-                if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
-                    System.out.println("ВСЕ сдохли");
-                    printCurrentMap();
+
+                battle(listVikingsAndIslands); // vikings in battle
+                if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) { //if there is nowhere of nobody to go
+                    printCurrentMap(); // print the map
                     break;
                 } else {
                     printCurrentMap();
@@ -107,13 +107,9 @@ public class StartTheWar {
     }
 
     private static void printCurrentMap() {
-       // System.out.println("Теперь столько викингов:" + StartTheWar.listVikingsAndIslands.keySet());
-        //System.out.println("Теперь столько викингов - объектов" + listOfVikings.keySet());
         for (Map.Entry<Integer, ArrayList<Integer>> pair : Islands.listOfIslands.entrySet()) {
             System.out.println("Остров" + pair.getKey());
         }
-        //System.out.println("Викинг и острова "+ StartTheWar.listVikingsAndIslands);
-
     }
 
     public static void main (String[]args) throws IOException {
