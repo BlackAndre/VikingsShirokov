@@ -25,12 +25,12 @@ public class Viking {
         ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(getPlace());
         // if there is available islands to move
         if (listOfIslandsToMove.size() != 0) {
-            System.out.println("Викинг " + getName() + " может сходить на острова: " + listOfIslandsToMove);
+            //System.out.println("The viking " + getName() + " can move on islands: " + listOfIslandsToMove);
             // random move on available island
             int randomNeighbor = new Random().nextInt(listOfIslandsToMove.size());
             // the viking is moving on random neighboring island
             setPlace(listOfIslandsToMove.get(randomNeighbor));
-            System.out.println("Викинг" + getName() + " переехал на остров" + getPlace());
+           // System.out.println("The viking" + getName() + " moved on island" + getPlace());
             // create the bound between island and vikings
             StartTheWar.listVikingsAndIslands.put(getName(), getPlace());
             return true;

@@ -34,7 +34,7 @@ public class StartTheWar {
             listOfVikings.put(viking.getName(), viking);
             // filled the bound viking-islands
             listVikingsAndIslands.put(viking.getName(), viking.getPlace());
-            System.out.println("The viking" + viking.getName() + " landed on the island" + viking.getPlace());
+            //System.out.println("The viking" + viking.getName() + " landed on the island" + viking.getPlace());
         }
     }
 
