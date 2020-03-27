@@ -9,6 +9,7 @@ public class StartTheWar {
                                                                                         // viking`s object
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>(); //create the map of bound vikings- islands
     private static Set<Integer> setOfDamagedIslands = new HashSet<Integer>(); // create the Set of damaged islands
+
     public static void howMuchVikings() throws IOException { //receiving number of vikings from the keyboard
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
@@ -19,6 +20,7 @@ public class StartTheWar {
         countVikingsFromKeyboard = num;
         reader.close();
     }
+
     private static void firstMoor() { // random land viking on the islands
         for (int i = 1; i < countVikingsFromKeyboard+1; i++) {
             Vikings vikings = new Vikings();
@@ -29,37 +31,47 @@ public class StartTheWar {
             //System.out.println("Викинг" + vikings.getName() + " высадился на остров" + vikings.getPlace());
         }
     }
-    public static void battle (Map<Integer, Integer> map) { // method that is called to check duplicate places of
-                                                            // vikings and to damage the island and kill vikings
+
+    public static void battle (Map<Integer, Integer> map) {
+        /* method that is called to check duplicate places of
+        vikings and to damage the island and kill vikings */
         try {
-        ArrayList<Integer> islands = new ArrayList(); // create the array to check the duplicate values
+            // create the array to check the duplicate values
+        ArrayList<Integer> islands = new ArrayList();
         for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
             islands.add(pair.getValue());
         }
-        int count = 0; // duplicate value counter
+        // duplicate value counter
+        int count = 0;
 
         for(Integer islandsInBattle : islands){
-            count = Collections.frequency(islands, islandsInBattle); // if array islands has duplicate,
+            // if array islands has duplicate, then kill the vikings and destroy the island
+            count = Collections.frequency(islands, islandsInBattle);
             if (count > 1) {
-                removeVikingIslandBound(map, islandsInBattle); //and kill the vikings
-                damageLightHouse(islandsInBattle);// // when damage island
+                removeVikingIslandBound(map, islandsInBattle);
+                damageLightHouse(islandsInBattle);
             }
         }
        } catch (Exception e){
             e.printStackTrace();
        }
     }
+
     public static void damageLightHouse(Integer island) {
-        Islands.listOfIslands.remove(island); // remove the island where was the battle
-        setOfDamagedIslands.add(island); // filled the Set of damaged islands
+        // remove the island where was the battle
+        Islands.listOfIslands.remove(island);
+        // filled the Set of damaged islands
+        setOfDamagedIslands.add(island);
         //System.out.println("Should be damaged" +island);
         for (Map.Entry entry : Islands.listOfIslands.entrySet()) {
-           ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue(); // remove the damaged neighbor of every island
+            // remove the damaged neighbor of every island
+           ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue();
             Islands.removeTheNeighbors(neighbors, island);
             //System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
         }
     }
-    public static void removeVikingIslandBound(Map<Integer, Integer> map, Integer value) { // remove the bound viking-island
+    // remove the bound viking-island
+    public static void removeVikingIslandBound(Map<Integer, Integer> map, Integer value) {
         Map<Integer, Integer> copy = new HashMap(map);
         for (Map.Entry<Integer, Integer> pair : copy.entrySet()) {
             Integer islandInBattle = pair.getValue();
@@ -67,12 +79,14 @@ public class StartTheWar {
             if (islandInBattle.equals(value)) {
                 map.remove(vikingInBattle);
                 System.out.println("АГР!!! На Острове" + islandInBattle + " уничтожен маяк, благодаря Викинг" +
-                      vikingInBattle); // print what happened
+                        // print what happened
+                        vikingInBattle);
                 killVikingsObjects(listOfVikings, pair.getKey());
             }
         }
     }
-    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) { // kill the vikings in battle
+    // kill the vikings in battle
+    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) {
         Map<Integer, Vikings> copy = new HashMap(map);
         for (Map.Entry<Integer, Vikings> pair : copy.entrySet()) {
             if (pair.getKey().equals(key)) {
@@ -80,21 +94,26 @@ public class StartTheWar {
             }
         }
     }
-    private static void WarIsOn () { // main action of War
-        firstMoor(); // landing the vikings
+    // main action of War
+    private static void WarIsOn () {
+        // landing the vikings
+        firstMoor();
         int countOfDays = 1;
-        boolean isAnybodyMove = true; // if anybody move on the map, keep going
+        // if anybody move on the map, keep going
+        boolean isAnybodyMove = true;
         while (isAnybodyMove) {
             if (countOfDays < 10000) {
                // System.out.println("Day " + countOfDays);
-                for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) { //move of vikings
+                //viking`s movement
+                for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) {
                     Vikings vikingToMove = pair.getValue();
                     isAnybodyMove = vikingToMove.moveToIsland();
                 }
-
-                battle(listVikingsAndIslands); // vikings in battle
-                if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) { //if there is nowhere of nobody to go
-                    printCurrentMap(); // print the map
+                // start the battles between vikings
+                battle(listVikingsAndIslands);
+                //if there is nowhere of nobody to go then print the current map
+                if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
+                    printCurrentMap();
                     break;
                 } else {
                     printCurrentMap();

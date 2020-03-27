@@ -5,19 +5,24 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.*;
 
-import static java.util.Collections.shuffle;
-
 public class Islands {
-    public static Map<Integer, ArrayList<Integer>> listOfIslands = new HashMap(); //create the map of islands
-    public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>(); // create List to count islands
-    private static int key = 1; // start to count from 1, not from 0
-    public static void fileReader() { // create method to read the file with map of islands
+    //create the map of islands
+    public static Map<Integer, ArrayList<Integer>> listOfIslands = new HashMap();
+    // create List to count islands
+    public static ArrayList<Integer> countOfIslands = new ArrayList<Integer>();
+    // start to count from 1, not from 0
+    private static int key = 1;
+    // create method to read the file with map of islands
+    public static void fileReader() {
         try {
-
-            File file = new File("/home/andrew/IT/file.txt"); // specify file path
-            FileReader fileReader = new FileReader(file); // create class FileReader to read the file
-            BufferedReader bufferedReader = new BufferedReader(fileReader); // connect FileReader with BufferedReader
-            String line; // line reading
+            // specify file path
+            File file = new File("/home/andrew/IT/file.txt");
+            // create class FileReader to read the file
+            FileReader fileReader = new FileReader(file);
+            // connect FileReader with BufferedReader
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            // line reading
+            String line;
 
             while ((line = bufferedReader.readLine()) != null) { // until the lines end
                 String Neighbors = line.substring(7); // cutting line after 7th character
@@ -41,32 +46,37 @@ public class Islands {
                 if (Neighbors.contains("Остров6")) {
                     listOfNeighbors.add(6);
                 }
-
-                listOfIslands.put(key, listOfNeighbors); // filling in the map of island and its neighbors
-                countOfIslands.add(key); // filling the array count
-                key++; // increment the key (number of main island)
+                // filling in the map of island and its neighbors
+                listOfIslands.put(key, listOfNeighbors);
+                // filling the array count
+                countOfIslands.add(key);
+                // increment the key (number of main island)
+                key++;
             }
-            Collections.shuffle(countOfIslands); // shuffle the array count to land the viking on random island for the first time
-
+            Collections.shuffle(countOfIslands);
+            // shuffle the array count to land the viking on random island for the first time
             /*for (Map.Entry entry : listOfIslands.entrySet()) {  out put the islands with neighbors
                 System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
-
             }*/
+
         } catch(Exception e){
             e.printStackTrace();
         }
     }
-    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) { // method to delete the neighbor
-                                                                                // when the same island`s lighthouse is damaged
+    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
+        // method to delete the neighbor when the same island`s lighthouse is damaged
         Iterator<Integer> listIterator = list.iterator();//create iterator
         while(listIterator.hasNext()) {
             Integer nextInt = listIterator.next();
+            //remove the island that equals the one which is destroyed
             if (nextInt.equals(neighbor)) {
-                listIterator.remove();//remove the island that equals the one which is destroyed
+                listIterator.remove();
             }
         }
     }
-    public static int getIsland(int i){ // getter of the island
+
+    // getter of the island
+    public static int getIsland(int i){
         return countOfIslands.get(i-1);
     }
 }
