@@ -4,31 +4,37 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class StartTheWar {
-    private static int countVikingsFromKeyboard = 0; // initialize the count of viking
-    public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>(); // create the map of number and
-                                                                                        // viking`s object
-    public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>(); //create the map of bound vikings- islands
-    private static Set<Integer> setOfDamagedIslands = new HashSet<Integer>(); // create the Set of damaged islands
+    // initialize the count of viking
+    private static int countVikingsFromKeyboard = 0;
+    // create the map of number and viking`s object
+    public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>();
+    //create the map of bound vikings- islands
+    public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>();
+    // create the Set of damaged islands
+    private static Set<Integer> setOfDamagedIslands = new HashSet<Integer>();
 
-    public static void getCountVikingsFromKeyboard() throws IOException { //receiving number of vikings from the keyboard
+    //receiving number of vikings from the keyboard
+    public static void getCountVikingsFromKeyboard() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         int num = Integer.parseInt(name);
-        if(num > Islands.countOfIslands.size()) { // number of viking should be less than the islands
-            System.out.println("Викингов больше чем островов");
+        // number of viking should be less than the islands
+        if(num > Islands.countOfIslands.size()) {
+            System.out.println("There are more Vikings than islands");
         } else
         countVikingsFromKeyboard = num;
         reader.close();
     }
-
-    private static void firstMoor() { // random land viking on the islands
+    // random land viking on the islands
+    private static void firstLanding() {
         for (int i = 1; i < countVikingsFromKeyboard+1; i++) {
-            Vikings vikings = new Vikings();
-            vikings.setName(i); // set the name by order
-            vikings.setPlace(Islands.getIsland(i)); // set the random place from shuffled array of islands
-            listOfVikings.put(vikings.getName(),vikings); // filled the Map of vikings number and object
-            listVikingsAndIslands.put(vikings.getName(),vikings.getPlace()); // filled the bound vikings-islands
-            System.out.println("Викинг" + vikings.getName() + " высадился на остров" + vikings.getPlace());
+            // set the name by order and set the random place from shuffled array of islands
+            Vikings vikings = new Vikings(i, Islands.getIsland(i));
+            // filled the Map of vikings number and object
+            listOfVikings.put(vikings.getName(),vikings);
+            // filled the bound vikings-islands
+            listVikingsAndIslands.put(vikings.getName(),vikings.getPlace());
+            System.out.println("The viking" + vikings.getName() + " landed on the island" + vikings.getPlace());
         }
     }
 
@@ -78,8 +84,8 @@ public class StartTheWar {
             Integer vikingInBattle = pair.getKey();
             if (islandInBattle.equals(value)) {
                 map.remove(vikingInBattle);
+                // print what happened
                 System.out.println("АГР!!! На Острове" + islandInBattle + " уничтожен маяк, благодаря Викинг" +
-                        // print what happened
                         vikingInBattle);
                 killVikingsObjects(listOfVikings, pair.getKey());
             }
@@ -97,7 +103,7 @@ public class StartTheWar {
     // main action of War
     private static void WarIsOn () {
         // landing the vikings
-        firstMoor();
+        firstLanding();
         int countOfDays = 1;
         // if anybody move on the map, keep going
         boolean isAnybodyMove = true;

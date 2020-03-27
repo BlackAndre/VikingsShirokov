@@ -1,9 +1,14 @@
 import java.util.*;
 
 public class Vikings {
-    private int place; // where the viking is
-    private int name; // name of the viking
-
+    // where the viking is
+    private int place;
+    // name of the viking
+    private int name;
+    public Vikings (int name, int place) {
+        this.name = name;
+        this.place = place;
+    }
     public int getPlace() {
         return place;
     } // getter of the place
