@@ -64,7 +64,7 @@ public class Islands {
             e.printStackTrace();
         }
     }
-    public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
+    public static void removeTheNeighbors(ArrayList<Integer> list, int neighbor) {
         // method to delete the neighbor when the same island`s lighthouse is damaged
         //create iterator
         Iterator<Integer> listIterator = list.iterator();
@@ -76,7 +76,6 @@ public class Islands {
             }
         }
     }
-
     // getter of the island
     public static int getIsland(int i){
         return countOfIslands.get(i-1);
