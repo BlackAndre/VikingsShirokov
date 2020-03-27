@@ -7,7 +7,7 @@ public class StartTheWar {
     // initialize the count of viking
     private static int countVikingsFromKeyboard = 0;
     // create the map of number and viking`s object
-    public static Map<Integer, Vikings> listOfVikings= new HashMap<Integer, Vikings>();
+    public static Map<Integer, Viking> listOfVikings= new HashMap<Integer, Viking>();
     //create the map of bound vikings- islands
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>();
     // create the Set of damaged islands
@@ -20,7 +20,7 @@ public class StartTheWar {
         int num = Integer.parseInt(name);
         // number of viking should be less than the islands
         if(num > Islands.countOfIslands.size()) {
-            System.out.println("There are more Vikings than islands");
+            System.out.println("There are more Viking than islands");
         } else
         countVikingsFromKeyboard = num;
         reader.close();
@@ -29,12 +29,12 @@ public class StartTheWar {
     private static void firstLanding() {
         for (int i = 1; i < countVikingsFromKeyboard+1; i++) {
             // set the name by order and set the random place from shuffled array of islands
-            Vikings vikings = new Vikings(i, Islands.getIsland(i));
-            // filled the Map of vikings number and object
-            listOfVikings.put(vikings.getName(),vikings);
-            // filled the bound vikings-islands
-            listVikingsAndIslands.put(vikings.getName(),vikings.getPlace());
-            System.out.println("The viking" + vikings.getName() + " landed on the island" + vikings.getPlace());
+            Viking viking = new Viking(i, Islands.getIsland(i));
+            // filled the Map of viking number and object
+            listOfVikings.put(viking.getName(), viking);
+            // filled the bound viking-islands
+            listVikingsAndIslands.put(viking.getName(), viking.getPlace());
+            System.out.println("The viking" + viking.getName() + " landed on the island" + viking.getPlace());
         }
     }
 
@@ -73,7 +73,7 @@ public class StartTheWar {
             // remove the damaged neighbor of every island
            ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue();
             Islands.removeTheNeighbors(neighbors, island);
-            System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
+            //System.out.println("Island: " + entry.getKey() + " Neighbors: "+ entry.getValue());
         }
     }
     // remove the bound viking-island
@@ -92,33 +92,32 @@ public class StartTheWar {
         }
     }
     // kill the vikings in battle
-    public static void killVikingsObjects (Map<Integer, Vikings> map, Integer key) {
-        Map<Integer, Vikings> copy = new HashMap(map);
-        for (Map.Entry<Integer, Vikings> pair : copy.entrySet()) {
+    public static void killVikingsObjects (Map<Integer, Viking> map, Integer key) {
+        Map<Integer, Viking> copy = new HashMap(map);
+        for (Map.Entry<Integer, Viking> pair : copy.entrySet()) {
             if (pair.getKey().equals(key)) {
                 map.remove(pair.getKey());
             }
         }
     }
-    // main action of War
+        // main action of War
     private static void WarIsOn () {
-        // landing the vikings
-        firstLanding();
+        firstLanding(); // landing the vikings
         int countOfDays = 1;
-        // if anybody move on the map, keep going
-        boolean isAnybodyMove = true;
+        boolean isAnybodyMove = true; // if anybody move on the map, keep going
         while (isAnybodyMove) {
             if (countOfDays < 10000) {
-                System.out.println("Day " + countOfDays);
+                // System.out.println("Day " + countOfDays);
                 //viking`s movement
-                for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) {
-                    Vikings vikingToMove = pair.getValue();
+                for (Map.Entry<Integer, Viking> pair : listOfVikings.entrySet()) {
+                    Viking vikingToMove = pair.getValue();
                     isAnybodyMove = vikingToMove.moveToIsland();
                 }
-                // start the battles between vikings
+                // viking`s battle
                 battle(listVikingsAndIslands);
-                //if there is nowhere of nobody to go then print the current map
+                //if there is nowhere of nobody to go
                 if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
+                    // print the map
                     printCurrentMap();
                     break;
                 } else {
@@ -130,7 +129,7 @@ public class StartTheWar {
             }
         }
     }
-
+    // print the current map of islands
     private static void printCurrentMap() {
         for (Map.Entry<Integer, ArrayList<Integer>> pair : Islands.listOfIslands.entrySet()) {
             System.out.println("Остров" + pair.getKey());

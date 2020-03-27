@@ -26,7 +26,8 @@ public class Islands {
 
             while ((line = bufferedReader.readLine()) != null) { // until the lines end
                 String Neighbors = line.substring(7); // cutting line after 7th character
-                ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>(); // create the list of neighbors current island
+                // create the list of neighbors current island
+                ArrayList<Integer> listOfNeighbors = new ArrayList<Integer>();
                 // filling the array of neighbors
                 if (Neighbors.contains("Остров1")) {
                     listOfNeighbors.add(1);
@@ -65,7 +66,8 @@ public class Islands {
     }
     public static void removeTheNeighbors (ArrayList<Integer>  list, int neighbor) {
         // method to delete the neighbor when the same island`s lighthouse is damaged
-        Iterator<Integer> listIterator = list.iterator();//create iterator
+        //create iterator
+        Iterator<Integer> listIterator = list.iterator();
         while(listIterator.hasNext()) {
             Integer nextInt = listIterator.next();
             //remove the island that equals the one which is destroyed
