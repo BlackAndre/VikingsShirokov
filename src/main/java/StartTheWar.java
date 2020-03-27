@@ -10,7 +10,7 @@ public class StartTheWar {
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>(); //create the map of bound vikings- islands
     private static Set<Integer> setOfDamagedIslands = new HashSet<Integer>(); // create the Set of damaged islands
 
-    public static void howMuchVikings() throws IOException { //receiving number of vikings from the keyboard
+    public static void getCountVikingsFromKeyboard() throws IOException { //receiving number of vikings from the keyboard
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         int num = Integer.parseInt(name);
@@ -28,7 +28,7 @@ public class StartTheWar {
             vikings.setPlace(Islands.getIsland(i)); // set the random place from shuffled array of islands
             listOfVikings.put(vikings.getName(),vikings); // filled the Map of vikings number and object
             listVikingsAndIslands.put(vikings.getName(),vikings.getPlace()); // filled the bound vikings-islands
-            //System.out.println("Викинг" + vikings.getName() + " высадился на остров" + vikings.getPlace());
+            System.out.println("Викинг" + vikings.getName() + " высадился на остров" + vikings.getPlace());
         }
     }
 
@@ -67,7 +67,7 @@ public class StartTheWar {
             // remove the damaged neighbor of every island
            ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue();
             Islands.removeTheNeighbors(neighbors, island);
-            //System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
+            System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
         }
     }
     // remove the bound viking-island
@@ -103,7 +103,7 @@ public class StartTheWar {
         boolean isAnybodyMove = true;
         while (isAnybodyMove) {
             if (countOfDays < 10000) {
-               // System.out.println("Day " + countOfDays);
+                System.out.println("Day " + countOfDays);
                 //viking`s movement
                 for (Map.Entry<Integer, Vikings> pair : listOfVikings.entrySet()) {
                     Vikings vikingToMove = pair.getValue();
@@ -133,7 +133,7 @@ public class StartTheWar {
 
     public static void main (String[]args) throws IOException {
         Islands.fileReader();
-        howMuchVikings();
+        getCountVikingsFromKeyboard();
         WarIsOn();
     }
 }
