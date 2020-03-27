@@ -3,6 +3,7 @@ import sun.java2d.SurfaceDataProxy;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Islands {
@@ -15,8 +16,16 @@ public class Islands {
     // create method to read the file with map of islands
     public static void fileReader() {
         try {
+            System.out.println("Please enter the number of the map:");
+            // input the number of the map
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String name = reader.readLine();
+            int numberOfMap = Integer.parseInt(name);
+
             // specify file path
-            File file = new File("/home/andrew/IT/file.txt");
+            String path = new File("").getAbsolutePath();
+            System.out.println("Какой у нас путь" + path);
+            File file = new File(path + "/file"+numberOfMap+".txt");;
             // create class FileReader to read the file
             FileReader fileReader = new FileReader(file);
             // connect FileReader with BufferedReader

@@ -15,6 +15,7 @@ public class StartTheWar {
 
     //receiving number of vikings from the keyboard
     public static void getCountVikingsFromKeyboard() throws IOException {
+        System.out.println("Please enter the count of Vikings:");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String name = reader.readLine();
         int num = Integer.parseInt(name);
