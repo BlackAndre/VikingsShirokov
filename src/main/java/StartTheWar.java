@@ -10,8 +10,8 @@ public class StartTheWar {
     public static Map<Integer, Viking> listOfVikings= new HashMap<Integer, Viking>();
     //create the map of bound vikings- islands
     public static Map<Integer, Integer> listVikingsAndIslands = new HashMap<Integer, Integer>();
-    // create the Set of damaged islands
-    private static Set<Integer> setOfDamagedIslands = new HashSet<Integer>();
+    // create the Set of islands that left afters all the battles
+    private static Set<Integer> setOfIslandsLeft = new HashSet<Integer>();
 
     //receiving number of vikings from the keyboard
     public static void getCountVikingsFromKeyboard() throws IOException {
@@ -65,11 +65,6 @@ public class StartTheWar {
     }
 
     public static void damageLightHouse(Integer island) {
-        // remove the island where was the battle
-        Islands.listOfIslands.remove(island);
-        // filled the Set of damaged islands
-        setOfDamagedIslands.add(island);
-        //System.out.println("Should be damaged" +island);
         for (Map.Entry entry : Islands.listOfIslands.entrySet()) {
             // remove the damaged neighbor of every island
            ArrayList<Integer> neighbors = (ArrayList<Integer>) entry.getValue();
@@ -119,21 +114,22 @@ public class StartTheWar {
                 //if there is nowhere of nobody to go
                 if (listVikingsAndIslands.isEmpty() || listOfVikings.isEmpty()) {
                     // print the map
-                    printCurrentMap();
                     break;
-                } else {
-                    printCurrentMap();
                 }
                 countOfDays++;
             } else {
                 isAnybodyMove = false;
             }
-        }
+        } printCurrentMap();
     }
     // print the current map of islands
     private static void printCurrentMap() {
         for (Map.Entry<Integer, ArrayList<Integer>> pair : Islands.listOfIslands.entrySet()) {
-            System.out.println("Остров" + pair.getKey());
+            ArrayList<Integer> arrayOfLeftIslands = pair.getValue();
+            setOfIslandsLeft.addAll(arrayOfLeftIslands);
+        }
+        for (Integer integer : setOfIslandsLeft) {
+            System.out.println("Остров" + integer);
         }
     }
 

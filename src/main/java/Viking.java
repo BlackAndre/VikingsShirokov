@@ -25,7 +25,7 @@ public class Viking {
         ArrayList<Integer> listOfIslandsToMove = Islands.listOfIslands.get(getPlace());
         // if there is available islands to move
         if (listOfIslandsToMove.size() != 0) {
-            //System.out.println("The viking " + getName() + " can move on islands: " + listOfIslandsToMove);
+          //  System.out.println("The viking " + getName() + " can move on islands: " + listOfIslandsToMove);
             // random move on available island
             int randomNeighbor = new Random().nextInt(listOfIslandsToMove.size());
             // the viking is moving on random neighboring island

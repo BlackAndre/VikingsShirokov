@@ -24,7 +24,6 @@ public class Islands {
 
             // specify file path
             String path = new File("").getAbsolutePath();
-            System.out.println("Какой у нас путь" + path);
             File file = new File(path + "/file"+numberOfMap+".txt");;
             // create class FileReader to read the file
             FileReader fileReader = new FileReader(file);
@@ -65,10 +64,6 @@ public class Islands {
             }
             Collections.shuffle(countOfIslands);
             // shuffle the array count to land the viking on random island for the first time
-            /*for (Map.Entry entry : listOfIslands.entrySet()) {  out put the islands with neighbors
-                System.out.println("Остров: " + entry.getKey() + " Соседи: "+ entry.getValue());
-            }*/
-
         } catch(Exception e){
             e.printStackTrace();
         }
